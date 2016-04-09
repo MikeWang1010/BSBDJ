@@ -1,0 +1,42 @@
+//
+//  PrefixHeader.pch
+//  BSBDJ
+//
+//  Created by mike on 16/1/8.
+//  Copyright © 2016年 mike. All rights reserved.
+//
+
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import "UIView+MKExtension.h"
+#import "UIBarButtonItem+MKExtension.h"
+#import "Masonry.h"
+#import "AFNetworking.h"
+#import "MJRefresh.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "MKConst.h"
+
+#ifdef DEBUG
+#define MKLog(...) NSLog(__VA_ARGS__)
+#else
+#define MKGLog(...)
+#endif
+
+#define MKLogFunc MKLog(@"%s", __func__)
+
+#define MKRGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+#define MKGlobalBg MKRGBColor(223, 223, 223)
+#define MKScreenW [UIScreen mainScreen].bounds.size.width
+#define MKScreenH [UIScreen mainScreen].bounds.size.height
+
+#define MKTagBg MKRGBColor(74, 139, 209)
+#define MKTagFont [UIFont systemFontOfSize:14]
+
+#endif /* PrefixHeader_pch */
