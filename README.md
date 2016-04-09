@@ -3,4 +3,15 @@
 如果有bug或者是结构不合理的地方请见谅，适合有一定iOS开发经验的小伙伴下载学习~~·
 
 
-![image](https://github.com/MikeWang1010/smallDay/blob/master/%E5%B0%8F%E6%97%A5%E5%AD%90/%E5%B0%8F%E6%97%A5%E5%AD%90/desImage/guide1.png)
+![image](https://github.com/MikeWang1010/BSBDJ/blob/master/BSBDJ/desImage/0.png)
+![image](https://github.com/MikeWang1010/BSBDJ/blob/master/BSBDJ/desImage/1.png)
+
+![image](https://github.com/MikeWang1010/BSBDJ/blob/master/BSBDJ/desImage/2.png)
+![image](https://github.com/MikeWang1010/BSBDJ/blob/master/BSBDJ/desImage/3.png)
+
+
+![image](https://github.com/MikeWang1010/BSBDJ/blob/master/BSBDJ/desImage/4.png)
+![image](https://github.com/MikeWang1010/BSBDJ/blob/master/BSBDJ/desImage/5.png)
+
+![image](https://github.com/MikeWang1010/BSBDJ/blob/master/BSBDJ/desImage/6.png)
+![image](https://github.com/MikeWang1010/BSBDJ/blob/master/BSBDJ/desImage/7.png)
