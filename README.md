@@ -14,4 +14,4 @@
 ![image](https://github.com/MikeWang1010/BSBDJ/blob/master/BSBDJ/desImage/5.png)
 
 ![image](https://github.com/MikeWang1010/BSBDJ/blob/master/BSBDJ/desImage/6.png)
-![image](https://github.com/MikeWang1010/BSBDJ/blob/master/BSBDJ/desImage/7.png)
+![image](https://github.com/MikeWang1010/BSBDJ/blob/master/BSBDJ/desImage/8.png)
