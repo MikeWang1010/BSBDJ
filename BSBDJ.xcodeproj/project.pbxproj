@@ -32,6 +32,8 @@
 		274D1D7F1C61F4D000AC31B9 /* MKAddTagToolbar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 274D1D7E1C61F4D000AC31B9 /* MKAddTagToolbar.xib */; };
 		274D1D821C61FDA700AC31B9 /* MKTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 274D1D811C61FDA700AC31B9 /* MKTagButton.m */; };
 		274D1D851C61FE0300AC31B9 /* MKTagTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 274D1D841C61FE0300AC31B9 /* MKTagTextField.m */; };
+		2796D4101CC09BF40081352D /* WMPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2796D40D1CC09BF40081352D /* WMPlayer.bundle */; };
+		2796D4111CC09BF40081352D /* WMPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2796D40F1CC09BF40081352D /* WMPlayer.m */; };
 		27A1BC1C1C474B8F0094CE89 /* HttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A1BC1B1C474B8F0094CE89 /* HttpManager.m */; };
 		27A1BC201C47A1120094CE89 /* UIImageView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A1BC1F1C47A1120094CE89 /* UIImageView+Extension.m */; };
 		27BA0F5E1C57193E00DC6349 /* MKTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BA0F5D1C57193E00DC6349 /* MKTopic.m */; };
@@ -90,9 +92,6 @@
 		27F71DA21C4663CB005D53E4 /* MKRecommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F71DA11C4663CB005D53E4 /* MKRecommentViewController.m */; };
 		27F71DA41C4663E5005D53E4 /* MKRecommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F71DA31C4663E5005D53E4 /* MKRecommentViewController.xib */; };
 		27FD22561C8EC6490012436E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FD22551C8EC6490012436E /* MediaPlayer.framework */; };
-		27FD225D1C8EC67F0012436E /* ZFPlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD22591C8EC67F0012436E /* ZFPlayerMaskView.m */; };
-		27FD225E1C8EC67F0012436E /* ZFPlayerMaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FD225A1C8EC67F0012436E /* ZFPlayerMaskView.xib */; };
-		27FD225F1C8EC67F0012436E /* ZFPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD225C1C8EC67F0012436E /* ZFPlayerView.m */; };
 		E05A2F8A076F65C74EF72493 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D41360052EE26B7D33409A6E /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -152,6 +151,9 @@
 		274D1D811C61FDA700AC31B9 /* MKTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTagButton.m; sourceTree = "<group>"; };
 		274D1D831C61FE0300AC31B9 /* MKTagTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKTagTextField.h; sourceTree = "<group>"; };
 		274D1D841C61FE0300AC31B9 /* MKTagTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTagTextField.m; sourceTree = "<group>"; };
+		2796D40D1CC09BF40081352D /* WMPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WMPlayer.bundle; sourceTree = "<group>"; };
+		2796D40E1CC09BF40081352D /* WMPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPlayer.h; sourceTree = "<group>"; };
+		2796D40F1CC09BF40081352D /* WMPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPlayer.m; sourceTree = "<group>"; };
 		27A1BC1A1C474B8F0094CE89 /* HttpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpManager.h; sourceTree = "<group>"; };
 		27A1BC1B1C474B8F0094CE89 /* HttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpManager.m; sourceTree = "<group>"; };
 		27A1BC1E1C47A1120094CE89 /* UIImageView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Extension.h"; sourceTree = "<group>"; };
@@ -251,11 +253,6 @@
 		27F71DA11C4663CB005D53E4 /* MKRecommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKRecommentViewController.m; sourceTree = "<group>"; };
 		27F71DA31C4663E5005D53E4 /* MKRecommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MKRecommentViewController.xib; sourceTree = "<group>"; };
 		27FD22551C8EC6490012436E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		27FD22581C8EC67F0012436E /* ZFPlayerMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerMaskView.h; sourceTree = "<group>"; };
-		27FD22591C8EC67F0012436E /* ZFPlayerMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerMaskView.m; sourceTree = "<group>"; };
-		27FD225A1C8EC67F0012436E /* ZFPlayerMaskView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFPlayerMaskView.xib; sourceTree = "<group>"; };
-		27FD225B1C8EC67F0012436E /* ZFPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerView.h; sourceTree = "<group>"; };
-		27FD225C1C8EC67F0012436E /* ZFPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerView.m; sourceTree = "<group>"; };
 		86B1EFC59DEB83755DF3D402 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		98CBEE0B388D261443833961 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D41360052EE26B7D33409A6E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -401,6 +398,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		2796D40C1CC09BF40081352D /* WMPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				2796D40D1CC09BF40081352D /* WMPlayer.bundle */,
+				2796D40E1CC09BF40081352D /* WMPlayer.h */,
+				2796D40F1CC09BF40081352D /* WMPlayer.m */,
+			);
+			path = WMPlayer;
+			sourceTree = "<group>";
+		};
 		27A1BC191C474B6F0094CE89 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -430,7 +437,7 @@
 		27EE2D221C3F94EF00474137 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				27FD22571C8EC67F0012436E /* PlayerView */,
+				2796D40C1CC09BF40081352D /* WMPlayer */,
 				274D1D6F1C61E91E00AC31B9 /* Publish(发布) */,
 				27A1BC191C474B6F0094CE89 /* Tools */,
 				27EE2D231C3F94EF00474137 /* Essence(精华) */,
@@ -706,18 +713,6 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
-		27FD22571C8EC67F0012436E /* PlayerView */ = {
-			isa = PBXGroup;
-			children = (
-				27FD22581C8EC67F0012436E /* ZFPlayerMaskView.h */,
-				27FD22591C8EC67F0012436E /* ZFPlayerMaskView.m */,
-				27FD225A1C8EC67F0012436E /* ZFPlayerMaskView.xib */,
-				27FD225B1C8EC67F0012436E /* ZFPlayerView.h */,
-				27FD225C1C8EC67F0012436E /* ZFPlayerView.m */,
-			);
-			path = PlayerView;
-			sourceTree = "<group>";
-		};
 		CEDAC28610F645B852D402C8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -814,6 +809,7 @@
 				27C4C1491C5B41B400714C66 /* MKTopicVideoView.xib in Resources */,
 				27F71D9F1C465253005D53E4 /* MKRecomentUserCell.xib in Resources */,
 				27F71DA41C4663E5005D53E4 /* MKRecommentViewController.xib in Resources */,
+				2796D4101CC09BF40081352D /* WMPlayer.bundle in Resources */,
 				27F71D9A1C465235005D53E4 /* MKRecommentCategoryCell.xib in Resources */,
 				27BA0F6D1C57552D00DC6349 /* MKTopicPictureView.xib in Resources */,
 				274D1D7F1C61F4D000AC31B9 /* MKAddTagToolbar.xib in Resources */,
@@ -834,7 +830,6 @@
 				27D982FC1C4890990017B80E /* MKMeViewController.xib in Resources */,
 				27C88A951CB900D30018E374 /* 8.png in Resources */,
 				27C88A931CB900D30018E374 /* 5.png in Resources */,
-				27FD225E1C8EC67F0012436E /* ZFPlayerMaskView.xib in Resources */,
 				272CDCBF1CB7A1B0005B0FAF /* MKAdViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -909,13 +904,12 @@
 				27F71D9E1C465253005D53E4 /* MKRecomentUserCell.m in Sources */,
 				274D1D7D1C61F4BF00AC31B9 /* MKAddTagToolbar.m in Sources */,
 				27C4C1521C5B48BA00714C66 /* MKTopicVoiceView.m in Sources */,
-				27FD225D1C8EC67F0012436E /* ZFPlayerMaskView.m in Sources */,
 				27EE2D3B1C3F94EF00474137 /* main.m in Sources */,
 				274D1D851C61FE0300AC31B9 /* MKTagTextField.m in Sources */,
+				2796D4111CC09BF40081352D /* WMPlayer.m in Sources */,
 				27D982FF1C48CB8E0017B80E /* MKRecommentRequestParametersModel.m in Sources */,
 				27EE2D411C3F9DC800474137 /* UIView+MKExtension.m in Sources */,
 				272CDCBE1CB7A1B0005B0FAF /* MKAdViewController.m in Sources */,
-				27FD225F1C8EC67F0012436E /* ZFPlayerView.m in Sources */,
 				27BA0F611C57199000DC6349 /* MKConst.m in Sources */,
 				27332C591C40DD99001B4225 /* MKPushNoticeView.m in Sources */,
 				27EE2D441C3F9EBA00474137 /* UIBarButtonItem+MKExtension.m in Sources */,

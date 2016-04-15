@@ -6,15 +6,22 @@
 //  Copyright © 2016年 mike. All rights reserved.
 //
 
+#define kScreenWidth  [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+
 #import "MKTopicViewController.h"
 #import "MKTopicCell.h"
 #import "MKTopic.h"
 #import "HttpManager.h"
 #import "MKShowPictureViewController.h"
-#import "ZFPlayerView.h"
+#import "WMPlayer.h"
 
-@interface MKTopicViewController ()<ZFPlayerViewDelegate>
+@interface MKTopicViewController ()<UIScrollViewDelegate>
+{
+    WMPlayer *wmPlayer;
 
+    BOOL isSmallScreen;
+}
 /** 帖子数据 */
 @property (nonatomic, strong) NSMutableArray *topics;
 /** 当前页码 */
@@ -26,6 +33,9 @@
 
 @property (nonatomic, strong) HttpManager *manager;
 
+@property(nonatomic,strong) MKTopicCell *currentCell;
+
+@property (nonatomic, strong) NSIndexPath *currentIndexPath;
 @end
 
 @implementation MKTopicViewController
@@ -33,13 +43,214 @@
     [super viewDidLoad];
     [self addRefresh];
     [self setupTableView];
+    //注册播放完成通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoDidFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+    //注册播放完成通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnClick:) name:WMPlayerFullScreenButtonClickedNotification object:nil];
+    //关闭通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(closeTheVideo:)
+                                                 name:WMPlayerClosedNotification
+                                               object:nil
+     ];
 }
 
 static NSString * const MKTopicCellId = @"topic";
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+//设置状态栏是否隐藏
+-(BOOL)prefersStatusBarHidden{
+    if (wmPlayer) {
+        if (wmPlayer.isFullscreen) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }else{
+        return NO;
+    }
+}
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+    //旋转屏幕通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onDeviceOrientationChange)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil
+     ];
+}
+
+-(void)videoDidFinished:(NSNotification *)notice{
+    [self releaseWMPlayer];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+-(void)closeTheVideo:(NSNotification *)obj{
+    [self releaseWMPlayer];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+-(void)fullScreenBtnClick:(NSNotification *)notice{
+    UIButton *fullScreenBtn = (UIButton *)[notice object];
+    if (fullScreenBtn.isSelected) {//全屏显示
+        wmPlayer.isFullscreen = YES;
+        [self setNeedsStatusBarAppearanceUpdate];
+        [self toFullScreenWithInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+    }else{
+        if (isSmallScreen) {
+            //放widow上,小屏显示
+//            [self toSmallScreen];
+        }else{
+            [self toCell];
+        }
+    }
+}
+
+/**
+ *  旋转屏幕通知
+ */
+- (void)onDeviceOrientationChange{
+    if (wmPlayer==nil||wmPlayer.superview==nil){
+        return;
+    }
+    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+    UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
+    switch (interfaceOrientation) {
+        case UIInterfaceOrientationPortraitUpsideDown:{
+            NSLog(@"第3个旋转方向---电池栏在下");
+        }
+            break;
+        case UIInterfaceOrientationPortrait:{
+            NSLog(@"第0个旋转方向---电池栏在上");
+            if (wmPlayer.isFullscreen) {
+                if (isSmallScreen) {
+                    //放widow上,小屏显示
+//                    [self toSmallScreen];
+                }else{
+                    [self toCell];
+                }
+            }
+        }
+            break;
+        case UIInterfaceOrientationLandscapeLeft:{
+            NSLog(@"第2个旋转方向---电池栏在左");
+            if (wmPlayer.isFullscreen == NO) {
+                wmPlayer.isFullscreen = YES;
+                
+                [self setNeedsStatusBarAppearanceUpdate];
+                [self toFullScreenWithInterfaceOrientation:interfaceOrientation];
+            }
+        }
+            break;
+        case UIInterfaceOrientationLandscapeRight:{
+            NSLog(@"第1个旋转方向---电池栏在右");
+            if (wmPlayer.isFullscreen == NO) {
+                wmPlayer.isFullscreen = YES;
+                [self setNeedsStatusBarAppearanceUpdate];
+                [self toFullScreenWithInterfaceOrientation:interfaceOrientation];
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)toFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation{
+    [wmPlayer removeFromSuperview];
+    wmPlayer.transform = CGAffineTransformIdentity;
+    if (interfaceOrientation==UIInterfaceOrientationLandscapeLeft) {
+        wmPlayer.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    }else if(interfaceOrientation==UIInterfaceOrientationLandscapeRight){
+        wmPlayer.transform = CGAffineTransformMakeRotation(M_PI_2);
+    }
+    wmPlayer.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    wmPlayer.playerLayer.frame =  CGRectMake(0,0, kScreenHeight,kScreenWidth);
+    
+    [wmPlayer.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(40);
+        make.top.mas_equalTo(kScreenWidth-40);
+        make.width.mas_equalTo(kScreenHeight);
+    }];
+    
+    [wmPlayer.closeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(wmPlayer).with.offset((-kScreenHeight/2));
+        make.height.mas_equalTo(30);
+        make.width.mas_equalTo(30);
+        make.top.equalTo(wmPlayer).with.offset(5);
+        
+    }];
+    
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:wmPlayer];
+    
+    wmPlayer.fullScreenBtn.selected = YES;
+    [wmPlayer bringSubviewToFront:wmPlayer.bottomView];
+    
+}
+
+-(void)toCell{
+    MKTopicCell *currentCell = self.currentCell;
+    MKTopic *topic = self.topics[self.currentIndexPath.row];
+    [wmPlayer removeFromSuperview];
+    NSLog(@"row = %ld",self.currentIndexPath.row);
+    [UIView animateWithDuration:0.5f animations:^{
+        wmPlayer.transform = CGAffineTransformIdentity;
+        wmPlayer.frame = topic.videoF;
+        wmPlayer.playerLayer.frame =  wmPlayer.bounds;
+        [currentCell.contentView addSubview:wmPlayer];
+        [currentCell.contentView bringSubviewToFront:wmPlayer];
+        [wmPlayer.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(wmPlayer).with.offset(0);
+            make.right.equalTo(wmPlayer).with.offset(0);
+            make.height.mas_equalTo(40);
+            make.bottom.equalTo(wmPlayer).with.offset(0);
+        }];
+        
+        [wmPlayer.closeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(wmPlayer).with.offset(5);
+            make.height.mas_equalTo(30);
+            make.width.mas_equalTo(30);
+            make.top.equalTo(wmPlayer).with.offset(5);
+        }];
+    }completion:^(BOOL finished) {
+        wmPlayer.isFullscreen = NO;
+        [self setNeedsStatusBarAppearanceUpdate];
+        isSmallScreen = NO;
+        wmPlayer.fullScreenBtn.selected = NO;
+        
+    }];
+    
+}
+/**
+ *  释放WMPlayer
+ */
+-(void)releaseWMPlayer{
+    [wmPlayer.player.currentItem cancelPendingSeeks];
+    [wmPlayer.player.currentItem.asset cancelLoading];
+    [wmPlayer pause];
+    
+    //移除观察者
+    [wmPlayer.currentItem removeObserver:wmPlayer forKeyPath:@"status"];
+    
+    [wmPlayer removeFromSuperview];
+    [wmPlayer.playerLayer removeFromSuperlayer];
+    [wmPlayer.player replaceCurrentItemWithPlayerItem:nil];
+    wmPlayer.player = nil;
+    wmPlayer.currentItem = nil;
+    //释放定时器，否侧不会调用WMPlayer中的dealloc方法
+    [wmPlayer.autoDismissTimer invalidate];
+    wmPlayer.autoDismissTimer = nil;
+    [wmPlayer.durationTimer invalidate];
+    wmPlayer.durationTimer = nil;
+    
+    
+    wmPlayer.playOrPauseBtn = nil;
+    wmPlayer.playerLayer = nil;
+    wmPlayer = nil;
+    
+    self.currentIndexPath = nil;
 }
 
 #pragma mark - TableView data source delegete
@@ -65,6 +276,41 @@ static NSString * const MKTopicCellId = @"topic";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    MKTopic *topic = self.topics[indexPath.row];
+    MKTopicCell *cell = cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.topic = topic;
+    if (topic.type == MKTopicTypeVideo) {
+        self.currentIndexPath = indexPath;
+        NSLog(@"currentIndexPath.row = %ld",self.currentIndexPath.row);
+        self.currentCell = cell;
+        isSmallScreen = NO;
+        
+        
+        if (wmPlayer) {
+            [wmPlayer removeFromSuperview];
+            wmPlayer.frame = topic.videoF;
+            [wmPlayer.player replaceCurrentItemWithPlayerItem:nil];
+            [wmPlayer setVideoURLStr:topic.videouri];
+            [wmPlayer play];
+            
+        }else{
+            wmPlayer = [[WMPlayer alloc]initWithFrame:topic.videoF videoURLStr:topic.videouri];
+            [wmPlayer play];
+            
+        }
+        [cell.contentView addSubview:wmPlayer];
+        [cell.contentView bringSubviewToFront:wmPlayer];
+//        [self.tableView reloadData];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    MKTopic *topic = self.topics[indexPath.row];
+    if (topic.type == MKTopicTypeVideo) {
+        if (self.currentCell == cell) {
+            [self closeTheVideo:nil];
+        }
+    }
 }
 
 
@@ -160,5 +406,13 @@ static NSString * const MKTopicCellId = @"topic";
         _manager = [[HttpManager alloc]init];
     }
     return _manager;
+}
+
+
+-(void)dealloc{
+    NSLog(@"%@ dealloc",[self class]);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self releaseWMPlayer];
 }
 @end
